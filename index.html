@@ -17,16 +17,18 @@
             }
         </style>
         <script>
-            let data=[3,1, 7, 9, 2, 6];
-            let list=document.getElementById("flex-container");
-            for(let number of data){
-                let div=document.createElement('div');
-                list.appendChild(div);
+            function refreshList(){
+                let data=[3,1, 7, 9, 2, 6];
+                let list=document.getElementById("flex-container");
+                for(let number of data){
+                    let div=document.createElement("div");
+                    list.appendChild(div);
+                }
             }
         </script>
     </head>
     <body>
-        <div id='flex-container'>
+        <div id='flex-container' onload='refreshList();'>
         </div>
     </body>
 </html>
