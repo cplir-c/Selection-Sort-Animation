@@ -9,21 +9,24 @@
             #flex-container>div{
                 background-color:skyblue;
                 border-color:blue;
-                border-width:1vw;
-                min-width:1vw;
-                min-height:1vw;
+                border-width:2vw;
+                min-width:16vw;
+                min-height:16vh;
+                padding:4vw;
+                margin:6vw;
             }
         </style>
         <script>
-            
+            let data=[3,1, 7, 9, 2, 6];
+            let list=document.getElementById("flex-container");
+            for(let number of data){
+                let div=document.createElement('div');
+                list.appendChild(div);
+            }
         </script>
     </head>
     <body>
         <div id='flex-container'>
-            <div>
-            </div>
-            <div>
-            </div>
         </div>
     </body>
 </html>
