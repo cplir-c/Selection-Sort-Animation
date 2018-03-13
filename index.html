@@ -7,9 +7,9 @@
                 justify-content:center;
                 min-width:5vw;
                 min-height:5vh;
-                padding:1vw;
+                padding:1vw 1vh;
                 background-color:lightblue;
-                border:3vw solid dodgerblue;
+                border:1vw ridge dodgerblue;
                 border-radius:5vw;
             }
             #flex-container>div{
@@ -20,8 +20,8 @@
                 border-style:solid;
                 min-width:1vw;
                 min-height:1vh;
-                padding:1vw;
-                margin:2vw;
+                padding:1vw 1vh;
+                margin:2vw 2vh;
             }
         </style>
         <script>
@@ -39,7 +39,7 @@
     </head>
     <body>
         <div id='flex-container' onclick="refreshList();">
-            <div onload="refreshList();">
+            <div onloadend="refreshList();">
             </div>
         </div>
     </body>
