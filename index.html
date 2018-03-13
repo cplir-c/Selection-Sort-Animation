@@ -54,21 +54,21 @@
                 list.style["background-color"]="lightblue";
                 function* generator(){
                     for(let targetIndex=0;targetIndex<list.children.length;targetIndex++){
-                        list.children[targetIndex].class="target"
+                        list.children[targetIndex].setAttribute('class',"target");
                         yield this;
                         let smallestIndex=targetIndex+1;
-                        list.children[smallestIndex].class="smallest";
+                        list.children[smallestIndex].setAttribute('class',"smallest");
                         yield this;
                         for(let potentialSmallestIndex=smallestIndex;potentialSmallestIndex<list.children.length;potentialSmallestIndex++){
                             list.children[potentialSmallestIndex].class="potential";
                             yield this;
                             if(+list.children[potentialSmallestIndex].textContent<+list.children[smallestIndex].textContent){
-                                list.children[smallestIndex].class="";
+                                list.children[smallestIndex].setAttribute('class',"");
                                 smallestIndex=potentialSmallestIndex;
-                                list.children[smallestIndex].class="smallest";
+                                list.children[smallestIndex].setAttribute('class',"smallest");
                                 yield this;
                             } else {
-                                list.children[potentialSmallestIndex].class="";
+                                list.children[potentialSmallestIndex].setAttribute('class',"");
                             } 
                             yield this;
                         }
@@ -98,7 +98,7 @@
                         } else {
                             //just let the target go back to the array
                         }
-                        list.children[targetIndex].class="";
+                        list.children[targetIndex].setAttribute('class','');
                         yield this;
                     }
                     list.ontransitionend="";//stop calling next; it's done
@@ -115,8 +115,7 @@
                 let list=document.getElementById("flex-container");
                 list.innerHTML="";
                 list.style["background-color"]="aqua";
-                list.onclick=animateSort;
-                
+                list.onclick=function(){return animateSort();};
                 for(let number of data){
                     let div=document.createElement("div");
                     div.innerText=number;
