@@ -26,17 +26,26 @@
                 top:0vh;
                 left:0vw;
                 transition:top 1s,left 1s;
-                o-transition:top 1s,left 1s;
-                webkit-transition:top 1s,left 1s;
-                moz-transition:top 1s,left 1s;
+                -o-transition:top 1s,left 1s;
+                -webkit-transition:top 1s,left 1s;
+                -moz-transition:top 1s,left 1s;
                 transition-timing-function:ease;
                 position:relative;
             }
-            #target::after{
+            .target{
+                top:50vh;
+            }
+            .target::after{
                 content:" (Target)";
             }
-            #smallest::after{
+            .smallest{
+                top:45vh;
+            }
+            .smallest::after{
                 content:" (Smallest)";
+            }
+            .potential{
+                top:40vh;
             }
         </style>
         <script>
@@ -44,30 +53,22 @@
                 let list=document.getElementById("flex-container");
                 let generator=function*(){
                     for(let targetIndex=0;targetIndex<list.children.length;targetIndex++){
-                        let oldID=list.children[targetIndex].id;
-                        list.children[targetIndex].style.top="50vh";
-                        yield undefined;
-                        list.children[targetIndex].id="target"
+                        list.children[targetIndex].class="target"
+                        yield this;
                         let smallestIndex=targetIndex+1;
-                        let oldSmallestID=list.children[smallestIndex].id;
-                        list.children[smallestIndex].style.top="45vh";
-                        yield undefined;
-                        list.children[smallestIndex].id="smallest";
-                        for(let potentialSmallestIndex=targetIndex+2;potentialSmallestIndex<list.children.length;potentialSmallestIndex++){
-                            list.children[potentialSmallestIndex].style.top="40vh";
-                            yield undefined;
+                        list.children[smallestIndex].class="smallest";
+                        yield this;
+                        for(let potentialSmallestIndex=smallestIndex;potentialSmallestIndex<list.children.length;potentialSmallestIndex++){
+                            list.children[potentialSmallestIndex].class="potential";
+                            yield this;
                             if(+list.children[potentialSmallestIndex].textContent<+list.children[smallestIndex].textContent){
-                                list.children[smallestIndex].style.top="0vh";
-                                list.children[smallestIndex].id=oldSmallestID;
+                                list.children[smallestIndex].class="";
                                 smallestIndex=potentialSmallestIndex;
-                                oldSmallestID=list.children[smallestIndex].id;
-                                list.children[smallestIndex].id="smallest";
-                                yield undefined;
-                                list.children[smallestIndex].style.top="45vh";
+                                list.children[smallestIndex].class="smallest";
                             } else {
-                                list.children[potentialSmallestIndex].style.top="0vh";
+                                list.children[potentialSmallestIndex].class="";
                             } 
-                            yield undefined;
+                            yield this;
                         }
                         if(+list.children[smallestIndex]<+list.children[targetIndex].textContent){
                             //smallest is smallest so swap with target
@@ -75,27 +76,29 @@
                             let distance=((-list.children[targetIndex].getBoundingClientRect().left)+(+list.children[smallestIndex].getBoundingClientRect().left))
                             list.children[smallestIndex].style.left=-distance+"px";
                             list.children[targetIndex].style.left=distance+"px";
-                            yield undefined;
+                            yield this;
                             let clone=list.children[targetIndex].cloneNode(true);
                             let target=list.replaceChild(clone,list.children[targetIndex]);//replace target with a clone
                             //replace smallest with target
                             list.replaceChild(list.replaceChild(target,list.children[smallestIndex]),clone);
                             //replace clone with smallest
                             //skip glitched animation
+                            let previous=list.children[targetIndex].style["transition-duration"];
                             list.children[targetIndex].style["transition-duration"]="0s";
                             list.children[smallestIndex].style["transition-duration"]="0s";
-                            list.children[smallestIndex].style.left="0vw"
-                            list.children[smallestIndex].style.left="0vw"
+                            list.children[smallestIndex].style.left="0vw";
+                            list.children[targetIndex].style.left="0vw";
+                            list.children[targetIndex].style["transition-duration"]=previous;
+                            list.children[smallestIndex].style["transition-duration"]=previous;
                         } else {
                             //just let the target go back to the array
                         }
-                        list.children[targetIndex].style.top="0vh";
-                        yield undefined;
-                        list.children[targetIndex].id=oldID;//removes target label from where it is
+                        list.children[targetIndex].class="";
+                        yield this;
                     }
                     list.ontransitionend=undefined;//stop calling next; it's done
                 }
-                if(list.ontransitionend==undefined){//if it can call a next don't start another animation
+                if(list.ontransitionend==undefined||list.ontransitionend==null){//if it can call a next don't start another animation
                     list.ontransitionend=generator.next;//this way yielding waits for the transition to end and then continues
                     generator.next()//start the animation
                 }
@@ -113,11 +116,13 @@
                     list.appendChild(div);
                 }
             }
+            refreshList();
+            animateSort();
         </script>
     </head>
     <body>
-        <div id='flex-container' onclick="refreshList();">
-            <div onloadend="refreshList();">
+        <div id='flex-container' onclick="refreshList();animateSort();">
+            <div>
             </div>
         </div>
     </body>
