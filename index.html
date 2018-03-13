@@ -1,4 +1,4 @@
-<html onload="refreshList();">
+<html onclick="refreshList();">
     <head>
         <style>
             #flex-container{
@@ -20,6 +20,7 @@
             function refreshList(){
                 let data=[3,1, 7, 9, 2, 6];
                 let list=Document.getElementById("flex-container");
+                list.innerHTML="";
                 for(let number of data){
                     let div=Document.createElement("div");
                     div.innerText=number;
