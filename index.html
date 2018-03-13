@@ -52,7 +52,7 @@
             function animateSort(){
                 let list=document.getElementById("flex-container");
                 list.style["background-color"]="lightblue";
-                let generator=function*(){
+                function* generator(){
                     for(let targetIndex=0;targetIndex<list.children.length;targetIndex++){
                         list.children[targetIndex].class="target"
                         yield this;
