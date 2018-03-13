@@ -51,6 +51,7 @@
             function animateSort(){
                 let list=document.getElementById("flex-container");
                 list.style["background-color"]="lightblue";
+                list.removeAttribute("onclick");
                 function* generator(){
                     for(let targetIndex=0;targetIndex<list.children.length;targetIndex++){
                         list.children[targetIndex].setAttribute('class',"target");
