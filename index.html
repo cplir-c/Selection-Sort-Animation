@@ -101,11 +101,12 @@
                         list.children[targetIndex].setAttribute('class','');
                         yield this;
                     }
-                    list.setAttribute("ontransitionend","");//stop calling next; it's done
+                    list.removeAttribute("ontransitionend");//stop calling next; it's done
                 }
                 if(list.ontransitionend==undefined||list.ontransitionend==null||list.ontransitionend==""){//if it can call a next don't start another animation
                     let iterator=generator()
-                    list.setAttribute("ontransitionend",iterator.next);//this way yielding waits for the transition to end and then continues
+                    list.setAttribute("ontransitionend",function(){iterator.next();});//this way yielding waits for the transition to end and then continues
+                    document.children[0].setAttribute("onclick",function(){iterator.next();});
                     iterator.next()//start the animation
                     //every yield is moved past by a an ending transition.
                 }
@@ -122,8 +123,8 @@
                     list.appendChild(div);
                 }
             }
-            document.addEventListener("load",refreshList);
-            document.addEventListener("load",animateSort);
+            document.children[0].addEventListener("loadend",function(){refreshList();});
+            document.children[0].addEventListener("loadend",function(){animateSort();});
         </script>
     </head>
     <body>
