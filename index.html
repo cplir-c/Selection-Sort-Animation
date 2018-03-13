@@ -122,8 +122,8 @@
                     list.appendChild(div);
                 }
             }
-            document.setAttribute("onload",refreshList);
-            document.setAttribute("onloadend",animateSort);
+            document.addEventListener("load",refreshList);
+            document.addEventListener("load",animateSort);
         </script>
     </head>
     <body>
