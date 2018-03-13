@@ -57,7 +57,6 @@
                         list.children[targetIndex].setAttribute('class',"target");
                         yield this;
                         let smallestIndex=targetIndex;
-                        list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class')+" smallest");
                         yield this;
                         for(let potentialSmallestIndex=smallestIndex+1;potentialSmallestIndex<list.children.length;potentialSmallestIndex++){
                             list.children[potentialSmallestIndex].setAttribute('class',list.children[potentialSmallestIndex].getAttribute('class')+" potential");
@@ -87,12 +86,12 @@
                             //replace clone with smallest
                             //skip glitched animation
                             let previous=list.children[targetIndex].style["transition-duration"];
-                            list.children[targetIndex].style["transition-duration"]="0.005ms";
-                            list.children[smallestIndex].style["transition-duration"]="0.005ms";
+                            list.children[targetIndex].style.transitionDuration="0.005ms";
+                            list.children[smallestIndex].style.transitionDuration="0.005ms";
                             list.children[smallestIndex].style.left="0vw";
                             list.children[targetIndex].style.left="0vw";
-                            list.children[targetIndex].style["transition-duration"]=previous;
-                            list.children[smallestIndex].style["transition-duration"]=previous;
+                            list.children[targetIndex].style.transitionDuration=previous;
+                            list.children[smallestIndex].style.transitionDuration=previous;
                             yield this;
                             yield this;
                         } else {
