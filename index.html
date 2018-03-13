@@ -40,17 +40,6 @@
             }
         </style>
         <script>
-            function refreshList(){
-                let data=[3,1, 7, 9, 2, 6];
-                let list=document.getElementById("flex-container");
-                list.innerHTML="";
-                for(let number of data){
-                    let div=document.createElement("div");
-                    div.innerText=number;
-                    div.onclick="animateSort();";
-                    list.appendChild(div);
-                }
-            }
             function animateSort(){
                 let list=document.getElementById("flex-container");
                 let generator=function*(){
@@ -109,6 +98,17 @@
                 if(list.ontransitionend==undefined){//if it can call a next don't start another animation
                     list.ontransitionend=generator.next;//this way yielding waits for the transition to end and then continues
                     generator.next()//start the animation
+                }
+            }
+            function refreshList(){
+                let data=[3,1, 7, 9, 2, 6];
+                let list=document.getElementById("flex-container");
+                list.innerHTML="";
+                for(let number of data){
+                    let div=document.createElement("div");
+                    div.innerText=number;
+                    div.onclick=animateSort;
+                    list.appendChild(div);
                 }
             }
         </script>
