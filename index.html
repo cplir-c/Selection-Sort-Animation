@@ -56,18 +56,18 @@
                         list.children[targetIndex].setAttribute('class',"target");
                         yield this;
                         let smallestIndex=targetIndex;
-                        list.children[smallestIndex].setAttribute('class',"smallest");
+                        list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class')+" smallest");
                         yield this;
                         for(let potentialSmallestIndex=smallestIndex+1;potentialSmallestIndex<list.children.length;potentialSmallestIndex++){
-                            list.children[potentialSmallestIndex].class="potential";
+                            list.children[potentialSmallestIndex].setAttribute('class',list.children[potentialSmallestIndex].getAttribute('class')+" potential");
                             yield this;
                             if(+list.children[potentialSmallestIndex].textContent<+list.children[smallestIndex].textContent){
-                                list.children[smallestIndex].removeAttribute('class');
+                                list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ smallest/g,""));
                                 smallestIndex=potentialSmallestIndex;
-                                list.children[smallestIndex].setAttribute('class',"smallest");
+                                list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ potential/g,"")+" smallest");
                                 yield this;
                             } else {
-                                list.children[potentialSmallestIndex].removeAttribute('class');
+                                list.children[potentialSmallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ potential/g,""));
                             } 
                             yield this;
                         }
@@ -95,7 +95,7 @@
                             yield this;
                             yield this;
                         } else {
-                            //just let the target go back to the array
+                            //just let the target go back to the array, it is smallest
                         }
                         list.children[targetIndex].setAttribute('class','');
                         yield this;
