@@ -105,8 +105,8 @@
                 }
                 if(list.ontransitionend==undefined||list.ontransitionend==null||list.ontransitionend==""){//if it can call a next don't start another animation
                     let iterator=generator()
-                    list.setAttribute("ontransitionend",function(){iterator.next();});//this way yielding waits for the transition to end and then continues
-                    document.children[0].setAttribute("onclick",function(){iterator.next();});
+                    list.addEventListener("transitionend",function(){iterator.next();});//this way yielding waits for the transition to end and then continues
+                    document.children[0].addEventListener("click",function(){iterator.next();});
                     iterator.next()//start the animation
                     //every yield is moved past by a an ending transition.
                 }
@@ -116,7 +116,7 @@
                 let list=document.getElementById("flex-container");
                 list.innerHTML="";
                 list.style["background-color"]="aqua";
-                list.setAttribute("onclick",function(){return animateSort();});
+                list.addEventListener("click",function(){return animateSort();});
                 for(let number of data){
                     let div=document.createElement("div");
                     div.textContent=number;
@@ -129,6 +129,7 @@
     </head>
     <body>
         <div id='flex-container' onclick="refreshList();animateSort();">
+            Click to advance.
             <div onclick="animateSort();">
             </div>
         </div>
