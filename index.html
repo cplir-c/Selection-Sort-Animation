@@ -47,7 +47,7 @@
                 for(let number of data){
                     let div=document.createElement("div");
                     div.innerText=number;
-                    div.onclick=animateSort;
+                    div.onclick="animateSort();";
                     list.appendChild(div);
                 }
             }
