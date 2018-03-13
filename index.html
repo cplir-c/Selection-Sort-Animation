@@ -1,4 +1,4 @@
-<html>
+<html onload="refreshList();">
     <head>
         <style>
             #flex-container{
@@ -16,12 +16,12 @@
                 margin:6vw;
             }
         </style>
-        <script onload="refreshList();">
+        <script>
             function refreshList(){
                 let data=[3,1, 7, 9, 2, 6];
-                let list=document.getElementById("flex-container");
+                let list=Document.getElementById("flex-container");
                 for(let number of data){
-                    let div=document.createElement("div");
+                    let div=Document.createElement("div");
                     div.innerText=number;
                     list.appendChild(div);
                 }
@@ -29,7 +29,7 @@
         </script>
     </head>
     <body>
-        <div id='flex-container' onload='refreshList();'>
+        <div id='flex-container'>
         </div>
     </body>
 </html>
