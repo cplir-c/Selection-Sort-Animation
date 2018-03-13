@@ -51,6 +51,7 @@
         <script>
             var animateSort=function animateSort(){
                 let list=document.getElementById("flex-container");
+                list.style["background-color"]=lightblue;
                 let generator=function*(){
                     for(let targetIndex=0;targetIndex<list.children.length;targetIndex++){
                         list.children[targetIndex].class="target"
@@ -65,6 +66,7 @@
                                 list.children[smallestIndex].class="";
                                 smallestIndex=potentialSmallestIndex;
                                 list.children[smallestIndex].class="smallest";
+                                yield this;
                             } else {
                                 list.children[potentialSmallestIndex].class="";
                             } 
@@ -77,6 +79,7 @@
                             list.children[smallestIndex].style.left=-distance+"px";
                             list.children[targetIndex].style.left=distance+"px";
                             yield this;
+                            yield this;
                             let clone=list.children[targetIndex].cloneNode(true);
                             let target=list.replaceChild(clone,list.children[targetIndex]);//replace target with a clone
                             //replace smallest with target
@@ -84,12 +87,14 @@
                             //replace clone with smallest
                             //skip glitched animation
                             let previous=list.children[targetIndex].style["transition-duration"];
-                            list.children[targetIndex].style["transition-duration"]="0s";
-                            list.children[smallestIndex].style["transition-duration"]="0s";
+                            list.children[targetIndex].style["transition-duration"]="0.005ms";
+                            list.children[smallestIndex].style["transition-duration"]="0.005ms";
                             list.children[smallestIndex].style.left="0vw";
                             list.children[targetIndex].style.left="0vw";
                             list.children[targetIndex].style["transition-duration"]=previous;
                             list.children[smallestIndex].style["transition-duration"]=previous;
+                            yield this;
+                            yield this;
                         } else {
                             //just let the target go back to the array
                         }
@@ -101,6 +106,7 @@
                 if(list.ontransitionend==undefined||list.ontransitionend==null){//if it can call a next don't start another animation
                     list.ontransitionend=generator.next;//this way yielding waits for the transition to end and then continues
                     generator.next()//start the animation
+                    //every yield is moved past by a an ending transition.
                 }
             }
             function refreshList(){
