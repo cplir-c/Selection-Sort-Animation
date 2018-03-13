@@ -49,7 +49,7 @@
             }
         </style>
         <script>
-            var animateSort=function animateSort(){
+            function animateSort(){
                 let list=document.getElementById("flex-container");
                 list.style["background-color"]=lightblue;
                 let generator=function*(){
@@ -103,7 +103,7 @@
                     }
                     list.ontransitionend=undefined;//stop calling next; it's done
                 }
-                if(list.ontransitionend==undefined||list.ontransitionend==null){//if it can call a next don't start another animation
+                if(list.ontransitionend==undefined||list.ontransitionend==null||list.ontransitionend==""){//if it can call a next don't start another animation
                     list.ontransitionend=generator.next;//this way yielding waits for the transition to end and then continues
                     generator.next()//start the animation
                     //every yield is moved past by a an ending transition.
@@ -128,7 +128,7 @@
     </head>
     <body>
         <div id='flex-container' onclick="refreshList();animateSort();">
-            <div>
+            <div onclick="animateSort();">
             </div>
         </div>
     </body>
