@@ -27,10 +27,10 @@
         <script>
             function refreshList(){
                 let data=[3,1, 7, 9, 2, 6];
-                let list=Document.getElementById("flex-container");
+                let list=document.getElementById("flex-container");
                 list.innerHTML="";
                 for(let number of data){
-                    let div=Document.createElement("div");
+                    let div=document.createElement("div");
                     div.innerText=number;
                     list.appendChild(div);
                 }
