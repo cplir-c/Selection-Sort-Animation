@@ -1,7 +1,7 @@
 <html>
     <head>
-        <style>
-            #flex-container{
+        <link rel="stylesheet"
+            href='data:text/css,#flex-container{
                 display:flex;
                 align-items:center;
                 justify-content:center;
@@ -46,8 +46,7 @@
             }
             #flex-container>div.potential{
                 top:40vh;
-            }
-        </style>
+            }'>
         <script>
             function animateSort(){
                 let list=document.getElementById("flex-container");
@@ -56,19 +55,19 @@
                     for(let targetIndex=0;targetIndex<list.children.length;targetIndex++){
                         list.children[targetIndex].setAttribute('class',"target");
                         yield this;
-                        let smallestIndex=targetIndex+1;
+                        let smallestIndex=targetIndex;
                         list.children[smallestIndex].setAttribute('class',"smallest");
                         yield this;
-                        for(let potentialSmallestIndex=smallestIndex;potentialSmallestIndex<list.children.length;potentialSmallestIndex++){
+                        for(let potentialSmallestIndex=smallestIndex+1;potentialSmallestIndex<list.children.length;potentialSmallestIndex++){
                             list.children[potentialSmallestIndex].class="potential";
                             yield this;
                             if(+list.children[potentialSmallestIndex].textContent<+list.children[smallestIndex].textContent){
-                                list.children[smallestIndex].setAttribute('class',"");
+                                list.children[smallestIndex].removeAttribute('class');
                                 smallestIndex=potentialSmallestIndex;
                                 list.children[smallestIndex].setAttribute('class',"smallest");
                                 yield this;
                             } else {
-                                list.children[potentialSmallestIndex].setAttribute('class',"");
+                                list.children[potentialSmallestIndex].removeAttribute('class');
                             } 
                             yield this;
                         }
