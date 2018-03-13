@@ -51,7 +51,7 @@
         <script>
             function animateSort(){
                 let list=document.getElementById("flex-container");
-                list.style["background-color"]=lightblue;
+                list.style["background-color"]="lightblue";
                 let generator=function*(){
                     for(let targetIndex=0;targetIndex<list.children.length;targetIndex++){
                         list.children[targetIndex].class="target"
@@ -101,7 +101,7 @@
                         list.children[targetIndex].class="";
                         yield this;
                     }
-                    list.ontransitionend=undefined;//stop calling next; it's done
+                    list.ontransitionend="";//stop calling next; it's done
                 }
                 if(list.ontransitionend==undefined||list.ontransitionend==null||list.ontransitionend==""){//if it can call a next don't start another animation
                     list.ontransitionend=generator.next;//this way yielding waits for the transition to end and then continues
