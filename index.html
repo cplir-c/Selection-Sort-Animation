@@ -40,7 +40,7 @@
             }
         </style>
         <script>
-            function animateSort(){
+            var animateSort=function animateSort(){
                 let list=document.getElementById("flex-container");
                 let generator=function*(){
                     for(let targetIndex=0;targetIndex<list.children.length;targetIndex++){
@@ -104,10 +104,10 @@
                 let data=[3,1, 7, 9, 2, 6];
                 let list=document.getElementById("flex-container");
                 list.innerHTML="";
+                list.onclick=animateSort;
                 for(let number of data){
                     let div=document.createElement("div");
                     div.innerText=number;
-                    div.onclick=animateSort;
                     list.appendChild(div);
                 }
             }
