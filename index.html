@@ -1,4 +1,4 @@
-<html onclick="refreshList();">
+<html>
     <head>
         <style>
             #flex-container{
@@ -6,7 +6,7 @@
                 align-items:center;
                 justify-content:center;
             }
-            #flex-container>div{
+            #flex-container>div,#flex-container{
                 background-color:skyblue;
                 border-color:blue;
                 border-width:2vw;
@@ -30,7 +30,7 @@
         </script>
     </head>
     <body>
-        <div id='flex-container'>
+        <div id='flex-container' onclick="refreshList();">
         </div>
     </body>
 </html>
