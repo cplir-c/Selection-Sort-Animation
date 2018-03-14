@@ -72,7 +72,6 @@
                             list.children[smallestIndex].style.left=-distance+"px";
                             list.children[targetIndex].style.left=distance+"px";
                             yield this;
-                            yield this;
                             let clone=list.children[targetIndex].cloneNode(true);
                             let target=list.replaceChild(clone,list.children[targetIndex]);//replace target with a clone
                             //replace smallest with target
@@ -86,7 +85,6 @@
                             list.children[targetIndex].style.left="0vw";
                             list.children[targetIndex].style.transitionDuration=previous;
                             list.children[smallestIndex].style.transitionDuration=previous;
-                            yield this;
                             yield this;
                         } else {
                             //just let the target go back to the array, it is smallest
