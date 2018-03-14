@@ -39,13 +39,13 @@
                 content:" (Target)";
             }
             #flex-container>div.smallest{
-                top:45vh;
+                top:35vh;
             }
             #flex-container>div.smallest::after{
                 content:" (Smallest)";
             }
             #flex-container>div.potential{
-                top:40vh;
+                top:20vh;
             }'>
         <script>
             function animateSort(){
@@ -113,11 +113,11 @@
                 }
             }
             function refreshList(){
-                let data=document.getElementById("data").value.split(" ",1e384);
+                let data=document.getElementById("data").value.split(/\s/g);
                 let list=document.getElementById("flex-container");
                 list.innerHTML="";
                 list.style["background-color"]="aqua";
-                list.addEventListener("click",function(){return animateSort();});
+                list.setAttribute("onclick","animateSort();");
                 for(let number of data){
                     let div=document.createElement("div");
                     div.textContent=number;
