@@ -44,7 +44,6 @@
         <script>
             function animateSort(){
                 let list=document.getElementById("flex-container");
-                list.style["background-color"]="lightblue";
                 list.removeAttribute("onclick");
                 function* generator(){
                     for(let targetIndex=0;targetIndex<list.children.length;targetIndex++){
@@ -58,7 +57,7 @@
                             if(+list.children[potentialSmallestIndex].textContent<+list.children[smallestIndex].textContent){
                                 list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?smallest/g,""));
                                 smallestIndex=potentialSmallestIndex;
-                                list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?potential/g,"")+" smallest");
+                                list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?potential/g," smallest"));
                                 yield this;
                             } else {
                                 list.children[potentialSmallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?potential/g,""));
@@ -78,7 +77,7 @@
                             list.replaceChild(list.replaceChild(target,list.children[smallestIndex]),clone);
                             //replace clone with smallest
                             //skip glitched animation
-                            let previous=list.children[targetIndex].style["transition-duration"];
+                            let previous=list.children[targetIndex].style.transitionDuration;
                             list.children[targetIndex].style.transitionDuration="0.005ms";
                             list.children[smallestIndex].style.transitionDuration="0.005ms";
                             list.children[smallestIndex].style.left="0vw";
@@ -95,14 +94,16 @@
                     }
                     list.removeEventListener("transitionend",animating);
                     list.removeEventListener("click",animating);
+                    list.addEventListener("click",animateSort());
                     animating=undefined;//let it start again; it's done
-                    list.setAttribute("onclick","refreshList();animateSort();")
                 }
                 if(animating==undefined||animating==null||animating==""){//if it can call a next don't start another animation
                     let iterator=generator()
                     var animating=function(){iterator.next();};
+                    list.removeEventListener("click",animateSort);
                     list.addEventListener("transitionend",animating);//this way yielding waits for the transition to end and then continues
-                    document.children[0].addEventListener("click",animating);
+                    list.addEventListener("click",animating);
+                   
                     iterator.next()//start the animation
                     //every yield is moved past by a an ending transition.
                 }
@@ -117,18 +118,17 @@
                     list.appendChild(div);
                 }
             }
-            document.children[0].addEventListener("loadend",function(){refreshList();});
-            document.children[0].addEventListener("loadend",function(){animateSort();});
+            document.getElementById("flex-container").addEventListener("click",animateSort);
         </script>
     </head>
     <body>
-        <div id='flex-container' onclick="refreshList();animateSort();">
+        <div id='flex-container'>
             Click to advance.
             <div onclick="animateSort();">
             </div>
         </div>
         <label for='data'>Enter some numbers separated by spaces</label>
         <input type='text' id='data' required pattern="([0-9.]+\.?[0-9]* )*[0-9]+\.?[0-9]*" size="50vw" value="3 1 7 9 2 6">
-        <button onclick="refreshList();animateSort();">Submit</button>
+        <button onclick="refreshList();">Reset List to Data</button>
     </body>
 </html>
