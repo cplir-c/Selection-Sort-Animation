@@ -25,10 +25,10 @@
                 margin:2vw 2vh;
                 top:0vh;
                 left:0vw;
-                transition:top 1s,left 1s;
-                -o-transition:top 1s,left 1s;
-                -webkit-transition:top 1s,left 1s;
-                -moz-transition:top 1s,left 1s;
+                transition:top 10s,left 10s;
+                -o-transition:top 10s,left 10s;
+                -webkit-transition:top 10s,left 10s;
+                -moz-transition:top 10s,left 10s;
                 transition-timing-function:ease;
                 position:relative;
             }
@@ -57,7 +57,7 @@
                         list.children[targetIndex].setAttribute('class',"target");
                         yield this;
                         let smallestIndex=targetIndex;
-                        yield this;
+                        
                         for(let potentialSmallestIndex=smallestIndex+1;potentialSmallestIndex<list.children.length;potentialSmallestIndex++){
                             list.children[potentialSmallestIndex].setAttribute('class',list.children[potentialSmallestIndex].getAttribute('class')+" potential");
                             yield this;
