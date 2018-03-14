@@ -117,7 +117,7 @@
                 let list=document.getElementById("flex-container");
                 list.innerHTML="";
                 list.style["background-color"]="aqua";
-                list.setAttribute("onclick","animateSort();");
+                list.removeAttribute("onclick");
                 for(let number of data){
                     let div=document.createElement("div");
                     div.textContent=number;
