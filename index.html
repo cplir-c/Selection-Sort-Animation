@@ -8,13 +8,13 @@
                 min-width:5vw;
                 min-height:5vh;
                 padding:1vw 1vh;
-                background-color:lightblue;
+                background-color:skyblue;
                 border:1vw dodgerblue;
                 border-style:ridge inset inset ridge;
                 border-radius:5vw;
             }
             #flex-container>div{
-                background-color:skyblue;
+                background-color:lightskyblue;
                 border-color:blue;
                 border-width:1vh;
                 border-radius:1.5vh;
@@ -25,27 +25,21 @@
                 margin:2vw 2vh;
                 top:0vh;
                 left:0vw;
-                transition:top 500ms,left 500ms;
-                -o-transition:top 500ms,left 500ms;
-                -webkit-transition:top 500ms,left 500ms;
-                -moz-transition:top 500ms,left 500ms;
+                transition:background-color 500ms,left 500ms;
+                -o-transition:background-color 500ms,left 500ms;
+                -webkit-transition:background-color 500ms,left 500ms;
+                -moz-transition:background-color 500ms,left 500ms;
                 transition-timing-function:ease;
                 position:relative;
             }
             #flex-container>div.target{
-                top:50vh;
-            }
-            #flex-container>div.target::after{
-                content:" (Target)";
+                background-color:paleturquoise;
             }
             #flex-container>div.smallest{
-                top:35vh;
-            }
-            #flex-container>div.smallest::after{
-                content:" (Smallest)";
+                background-color:deepSkyBlue;
             }
             #flex-container>div.potential{
-                top:20vh;
+                background-color:mediumSlateBlue;
             }'>
         <script>
             function animateSort(){
@@ -101,13 +95,16 @@
                         list.children[smallestIndex].setAttribute("class","");
                         yield this;
                     }
-                    animating=false;//let it start again; it's done
+                    list.removeEventListener("transitionend",animating);
+                    list.removeEventListener("click",animating);
+                    animating=undefined;//let it start again; it's done
+                    list.setAttribute("onclick","refreshList();animateSort();")
                 }
                 if(animating==undefined||animating==null||animating==""){//if it can call a next don't start another animation
                     let iterator=generator()
-                    var animating=true;
-                    list.addEventListener("transitionend",function(){iterator.next();});//this way yielding waits for the transition to end and then continues
-                    document.children[0].addEventListener("click",function(){iterator.next();});
+                    var animating=function(){iterator.next();};
+                    list.addEventListener("transitionend",animating);//this way yielding waits for the transition to end and then continues
+                    document.children[0].addEventListener("click",animating);
                     iterator.next()//start the animation
                     //every yield is moved past by a an ending transition.
                 }
@@ -116,8 +113,6 @@
                 let data=document.getElementById("data").value.split(/\s/g);
                 let list=document.getElementById("flex-container");
                 list.innerHTML="";
-                list.style["background-color"]="aqua";
-                list.removeAttribute("onclick");
                 for(let number of data){
                     let div=document.createElement("div");
                     div.textContent=number;
@@ -136,6 +131,6 @@
         </div>
         <label for='data'>Enter some numbers separated by spaces</label>
         <input type='text' id='data' required pattern="([0-9.]+\.?[0-9]* )*[0-9]+\.?[0-9]*" size="50vw" value="3 1 7 9 2 6">
-        <button onclick="refreshList();">Submit</button>
+        <button onclick="refreshList();animateSort();">Submit</button>
     </body>
 </html>
