@@ -113,7 +113,7 @@
                 }
             }
             function refreshList(){
-                let data=[3,1, 7, 9, 2, 6];
+                let data=document.getElementById("data").value;
                 let list=document.getElementById("flex-container");
                 list.innerHTML="";
                 list.style["background-color"]="aqua";
@@ -134,5 +134,8 @@
             <div onclick="animateSort();">
             </div>
         </div>
+        <label for='data'>Enter some numbers separated by spaces</label>
+        <input type='text' id='data' required pattern="([0-9.]+\.?[0-9]* )*[0-9]+\.?[0-9]*" size="50vw" value="3 1 7 9 2 6">
+        <button onclick="refreshList();">Submit</button>
     </body>
 </html>
