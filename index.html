@@ -113,7 +113,7 @@
                 }
             }
             function refreshList(){
-                let data=document.getElementById("data").value;
+                let data=document.getElementById("data").value.split(" ");
                 let list=document.getElementById("flex-container");
                 list.innerHTML="";
                 list.style["background-color"]="aqua";
