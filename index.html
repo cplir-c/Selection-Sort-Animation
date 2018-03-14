@@ -62,16 +62,16 @@
                             list.children[potentialSmallestIndex].setAttribute('class',list.children[potentialSmallestIndex].getAttribute('class')+" potential");
                             yield this;
                             if(+list.children[potentialSmallestIndex].textContent<+list.children[smallestIndex].textContent){
-                                list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ smallest/g,""));
+                                list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?smallest/g,""));
                                 smallestIndex=potentialSmallestIndex;
-                                list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ potential/g,"")+" smallest");
+                                list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?potential/g,"")+" smallest");
                                 yield this;
                             } else {
-                                list.children[potentialSmallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ potential/g,""));
+                                list.children[potentialSmallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?potential/g,""));
                             } 
                             yield this;
                         }
-                        if(+list.children[smallestIndex]<+list.children[targetIndex].textContent){
+                        if(+list.children[smallestIndex].textContent<+list.children[targetIndex].textContent){
                             //smallest is smallest so swap with target
                             //swapping is the only sideways animation
                             let distance=((-list.children[targetIndex].getBoundingClientRect().left)+(+list.children[smallestIndex].getBoundingClientRect().left))
@@ -98,12 +98,14 @@
                             //just let the target go back to the array, it is smallest
                         }
                         list.children[targetIndex].setAttribute('class','');
+                        list.children[smallestIndex].setAttribute("class","");
                         yield this;
                     }
-                    list.removeAttribute("ontransitionend");//stop calling next; it's done
+                    animating=false;//let it start again; it's done
                 }
-                if(list.ontransitionend==undefined||list.ontransitionend==null||list.ontransitionend==""){//if it can call a next don't start another animation
+                if(animating==undefined||animating==null||animating==""){//if it can call a next don't start another animation
                     let iterator=generator()
+                    var animating=true;
                     list.addEventListener("transitionend",function(){iterator.next();});//this way yielding waits for the transition to end and then continues
                     document.children[0].addEventListener("click",function(){iterator.next();});
                     iterator.next()//start the animation
