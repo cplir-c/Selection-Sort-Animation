@@ -100,10 +100,9 @@
                 if(animating==undefined||animating==null||animating==""){//if it can call a next don't start another animation
                     let iterator=generator()
                     var animating=function(){iterator.next();};
-                    list.removeEventListener("click",animateSort);
                     list.addEventListener("transitionend",animating);//this way yielding waits for the transition to end and then continues
                     list.addEventListener("click",animating);
-                   
+                    list.onclick="animateSort();"
                     iterator.next()//start the animation
                     //every yield is moved past by a an ending transition.
                 }
@@ -118,14 +117,12 @@
                     list.appendChild(div);
                 }
             }
-            document.getElementById("flex-container").addEventListener("click",animateSort);
+            document.getElementById("flex-container").setAttribute("onclick","animateSort();");
         </script>
     </head>
     <body>
         <div id='flex-container'>
-            Click to advance.
-            <div onclick="animateSort();">
-            </div>
+            Click this to advance. Click
         </div>
         <label for='data'>Enter some numbers separated by spaces</label>
         <input type='text' id='data' required pattern="([0-9.]+\.?[0-9]* )*[0-9]+\.?[0-9]*" size="50vw" value="3 1 7 9 2 6">
