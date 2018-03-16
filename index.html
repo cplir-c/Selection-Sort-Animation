@@ -101,8 +101,7 @@
                     let iterator=generator()
                     var animating=function(){iterator.next();};
                     list.addEventListener("transitionend",animating);//this way yielding waits for the transition to end and then continues
-                    list.addEventListener("click",animating);
-                    list.onclick="animateSort();"
+                    list.onclick="animating();";
                     iterator.next()//start the animation
                     //every yield is moved past by a an ending transition.
                 }
@@ -120,7 +119,7 @@
         </script>
     </head>
     <body>
-        <div id='flex-container' onloadend='document.getElementById("flex-container").onclick="animateSort();";'>
+        <div id='flex-container' onclick="animateSort();">
             Click this to advance. Click
         </div>
         <label for='data'>Enter some numbers separated by spaces</label>
