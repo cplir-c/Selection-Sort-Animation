@@ -92,8 +92,7 @@
                         yield this;
                     }
                     list.removeEventListener("transitionend",animateSort.animating);
-                    list.removeEventListener("click",animateSort.animating);
-                    list.addEventListener("click",animateSort.animating);
+                    list.onclick="animateSort();";
                     animateSort.animating=undefined;//let it start again; it's done
                 }
                 if(animateSort.animating==undefined||animateSort.animating==null||animateSort.animating==""){//if it can call a next don't start another animation
@@ -118,8 +117,8 @@
         </script>
     </head>
     <body>
-        <div id='flex-container' onclick="animateSort.animating();">
-            Click this to advance. Click
+        <div id='flex-container' onclick="animateSort();">
+            Click this to advance.
         </div>
         <label for='data'>Enter some numbers separated by spaces</label>
         <input type='text' id='data' required pattern="([0-9.]+\.?[0-9]* )*[0-9]+\.?[0-9]*" size="50vw" value="3 1 7 9 2 6">
