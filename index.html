@@ -92,14 +92,14 @@
                         yield this;
                     }
                     list.removeEventListener("transitionend",animateSort.animating);
-                    list.onclick="animateSort();";
+                    list.setAttribute("onclick","animateSort();");
                     animateSort.animating=undefined;//let it start again; it's done
                 }
                 if(animateSort.animating==undefined||animateSort.animating==null||animateSort.animating==""){//if it can call a next don't start another animation
                     let iterator=generator()
                     animateSort.animating=function(){iterator.next();};
                     list.addEventListener("transitionend",animateSort.animating);//this way yielding waits for the transition to end and then continues
-                    list.onclick="animateSort.animating();";
+                    list.setAttribute("onclick","animateSort.animating();");
                     iterator.next()//start the animation
                     //every yield is moved past by a an ending transition.
                 }
