@@ -113,6 +113,8 @@
                     div.textContent=number;
                     list.appendChild(div);
                 }
+                list.setAttribute("onclick","animateSort();");
+                animateSort.animating=undefined;
             }
         </script>
     </head>
