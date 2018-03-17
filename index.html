@@ -26,10 +26,10 @@
                 margin:2vw 2vh;
                 top:0vh;
                 left:0vw;
-                transition:background-color 200ms,left 200ms;
-                -o-transition:background-color 200ms,left 200ms;
-                -webkit-transition:background-color 200ms,left 200ms;
-                -moz-transition:background-color 200ms,left 200ms;
+                transition:background-color 200ms,left 200ms, top 200ms;
+                -o-transition:background-color 200ms,left 200ms, top 200ms;
+                -webkit-transition:background-color 200ms,left 200ms, top 200ms;
+                -moz-transition:background-color 200ms,left 200ms, top 200ms;
                 transition-timing-function:ease;
                 position:relative;
             }
@@ -66,9 +66,14 @@
                         if(+list.children[smallestIndex].textContent<+list.children[targetIndex].textContent){
                             //smallest is smallest so swap with target
                             //swapping is the only sideways animation
-                            let distance=((-list.children[targetIndex].getBoundingClientRect().left)+(+list.children[smallestIndex].getBoundingClientRect().left))
-                            list.children[smallestIndex].style.left=-distance+"px";
-                            list.children[targetIndex].style.left=distance+"px";
+                            let targetRect=list.children[targetIndex].getBoundingClientRect();
+                            let smallRect=list.children[smallestIndex].getBoundingClientRect();
+                            let distancex=((-targetRect.left)+(+smallRect.left))
+                            list.children[smallestIndex].style.left=-distancex+"px";
+                            list.children[targetIndex].style.left=distancex+"px";
+                            let distancey=((-targetRect.top)+(+smallRect.top))
+                            list.children[smallestIndex].style.top=-distancey+"px";
+                            list.children[targetIndex].style.top=distancey+"px";
                             yield this;
                             let clone=list.children[targetIndex].cloneNode(true);
                             let target=list.replaceChild(clone,list.children[targetIndex]);//replace target with a clone
