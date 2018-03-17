@@ -60,8 +60,7 @@
                                 yield this;
                             } else {
                                 list.children[potentialSmallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?potential/g,""));
-                            } 
-                            yield this;
+                            }
                         }
                         if(+list.children[smallestIndex].textContent<+list.children[targetIndex].textContent){
                             //smallest is smallest so swap with target
