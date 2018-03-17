@@ -97,7 +97,7 @@
                 }
                 if(animateSort.animating==undefined||animateSort.animating==null||animateSort.animating==""){//if it can call a next don't start another animation
                     let iterator=generator()
-                    var animateSort.animating=function(){iterator.next();};
+                    animateSort.animating=function(){iterator.next();};
                     list.addEventListener("transitionend",animateSort.animating);//this way yielding waits for the transition to end and then continues
                     list.onclick="animateSort.animating();";
                     iterator.next()//start the animation
