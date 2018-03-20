@@ -58,7 +58,6 @@
                                 list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?smallest/g,""));
                                 smallestIndex=potentialSmallestIndex;
                                 list.children[smallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?potential/g," smallest"));
-                                yield this;
                             } else {
                                 list.children[potentialSmallestIndex].setAttribute('class',list.children[smallestIndex].getAttribute('class').replace(/ ?potential/g,""));
                             }
